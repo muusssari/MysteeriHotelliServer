@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+    <script src="/socket.io/socket.io.js"></script>
+  </head>
+  <body>
+    <h1>TEST</h1>
+    <h4 onclick="createLobby()">create Lobby</h4>
+    
+    <script>
+      const socket = io();
+      socket.on('error', function (reason){
+        console.error('Unable to connect Socket.IO', reason);
+      });
+
+      function createLobby() {
+        console.log('emit create lobby')
+        socket.emit('createLobby', {name: "test"});
+      }
+    </script>
+  </body>
+</html>
