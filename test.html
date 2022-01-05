@@ -7,6 +7,9 @@
   <body>
     <h1>TEST</h1>
     <h4 onclick="createLobby()">create Lobby</h4>
+
+    <input type="text" id="joinLobbyGuid">
+    <h4 onclick="joinLobby()">join Lobby</h4>
     
     <script>
       const socket = io();
@@ -14,10 +17,19 @@
         console.error('Unable to connect Socket.IO', reason);
       });
 
-      function createLobby() {
-        console.log('emit create lobby')
-        socket.emit('createLobby', {name: "test"});
+      function joinLobby() {
+        const guid = document.getElementById("joinLobbyGuid").value;
+        socket.emit('joinLobby', guid, (response) => console.log(response.success, response.guid, response.error));
       }
+
+      function createLobby() {
+        console.log('create lobby')
+        socket.emit('createLobby', {name: "test"}, (response) => console.log(response.success, response.guid, response.error));
+      }
+
+
+      socket.on('userJoined', (data) => console.log("joined: ", data))
+      socket.on('userCount', (data) => console.log("userCount: ", data))
     </script>
   </body>
 </html>

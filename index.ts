@@ -15,7 +15,7 @@ const port = process.env.PORT || 2000;
 const socketController = new SocketListener(server);
 
 
-app.get('/', (req, res) => {
+app.get('/*', (req, res) => {
   res.sendFile(__dirname + '/test.html');
 });
 
